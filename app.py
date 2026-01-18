@@ -6,11 +6,11 @@ from dotenv import load_dotenv
 
 # Load environment variables from .env file
 # Use absolute path to .env file for cron compatibility
-env_path = '/home/mohammad/Documents/Projects/nskh/.env'
+env_path = '/home/mohammad/nskh/.env'
 load_dotenv(dotenv_path=env_path)
 
 # Add the modules directory to path using absolute path
-sys.path.insert(0, '/home/mohammad/Documents/Projects/nskh/modules')
+sys.path.insert(0, '/home/mohammad/nskh/modules')
 
 from pg_service import PostgreSQLBackup
 from drive_service import GoogleDriveService

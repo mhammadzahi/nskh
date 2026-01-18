@@ -95,6 +95,9 @@ class PostgreSQLBackup:
         dump_files = []
         
         for db in databases:
+            if db == 'waeda':
+                continue
+
             dump_file = self.dump_database(db)
             if dump_file:
                 dump_files.append(dump_file)
