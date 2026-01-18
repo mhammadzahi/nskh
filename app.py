@@ -1,26 +1,22 @@
 #!/usr/bin/env python3
-"""
-PostgreSQL Database Backup to Google Drive
-Designed to run as a cron job with absolute paths
-"""
 
-import os, import sys, logging
+import os, sys, logging
 from datetime import datetime
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 # Use absolute path to .env file for cron compatibility
-env_path = '/Users/owner/Documents/nskh/.env'
+env_path = '/home/mohammad/Documents/Projects/nskh/.env'
 load_dotenv(dotenv_path=env_path)
 
 # Add the modules directory to path using absolute path
-sys.path.insert(0, '/Users/owner/Documents/nskh/modules')
+sys.path.insert(0, '/home/mohammad/Documents/Projects/nskh/modules')
 
 from pg_service import PostgreSQLBackup
 from drive_service import GoogleDriveService
 
 # Configure logging
-log_dir = os.getenv('LOG_DIR', '/var/log/pg_backup')
+log_dir = os.getenv('LOG_DIR')
 os.makedirs(log_dir, exist_ok=True)
 log_file = os.path.join(log_dir, f'backup_{datetime.now().strftime("%Y%m%d")}.log')
 
@@ -41,16 +37,16 @@ def main():
     logger.info("=" * 50)
 
     # Load configuration from environment variables
-    PG_HOST = os.getenv('PG_HOST', 'localhost')
-    PG_PORT = int(os.getenv('PG_PORT', 5432))
-    PG_USER = os.getenv('PG_USER', 'postgres')
-    PG_PASSWORD = os.getenv('PG_PASSWORD', '')
+    PG_HOST = os.getenv('PG_HOST')
+    PG_PORT = int(os.getenv('PG_PORT'))
+    PG_USER = os.getenv('PG_USER')
+    PG_PASSWORD = os.getenv('PG_PASSWORD')
     
     # Google Drive credentials file (absolute path)
     CREDENTIALS_FILE = os.getenv('CREDENTIALS_FILE')
     
     # Google Drive folder ID (optional - leave empty to upload to root)
-    DRIVE_FOLDER_ID = os.getenv('DRIVE_FOLDER_ID') or None
+    PG_DRIVE_FOLDER_ID = os.getenv('PG_DRIVE_FOLDER_ID')
     
     try:
         # Step 1: Initialize PostgreSQL backup
@@ -69,7 +65,7 @@ def main():
         
         # Step 3: Initialize Google Drive service
         logger.info("Initializing Google Drive service...")
-        drive_service = GoogleDriveService(credentials_file=CREDENTIALS_FILE, folder_id=DRIVE_FOLDER_ID)
+        drive_service = GoogleDriveService(credentials_file=CREDENTIALS_FILE, folder_id=PG_DRIVE_FOLDER_ID)
         
         # Step 4: Upload all dump files to Google Drive
         logger.info("Uploading dump files to Google Drive...")
