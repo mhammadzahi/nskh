@@ -12,6 +12,7 @@ Automated backup system that dumps all PostgreSQL databases and uploads them to 
 
 ## Setup
 
+
 ### 1. Install Dependencies
 
 ```bash
