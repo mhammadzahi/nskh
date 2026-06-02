@@ -96,7 +96,7 @@ class PostgreSQLBackup:
         print(f"Databases to dump: {databases}")
         
         for db in databases:
-            if db == 'waeda':
+            if db in ['waeda', 'ir_system', 'ir_clients']:
                 continue
 
             dump_file = self.dump_database(db)
