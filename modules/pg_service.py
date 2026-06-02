@@ -93,6 +93,7 @@ class PostgreSQLBackup:
         """Dump all databases and return list of dump file paths"""
         databases = self.get_all_databases()
         dump_files = []
+        print(f"Databases to dump: {databases}")
         
         for db in databases:
             if db == 'waeda':
